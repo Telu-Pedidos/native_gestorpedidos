@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "native_gestorpedidos",
-    "slug": "native_gestorpedidos",
+    "name": "doc4-estudo",
+    "slug": "doc4-estudo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,6 +24,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": ["expo-router"]
   }
 }
