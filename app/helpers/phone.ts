@@ -17,3 +17,21 @@ export function regexPhoneNumber(phone: string) {
 
   return phone.replace(/\D/g, "");
 }
+
+export function formatPhoneNumberInput(phone: string) {
+  const cleaned = phone.replace(/\D/g, "").slice(0, 11);
+  const match = cleaned.match(/^(\d{0,2})(\d{0,5})(\d{0,4})$/);
+
+  if (match) {
+    const [, ddd, firstPart, secondPart] = match;
+    if (secondPart) {
+      return `(${ddd}) ${firstPart}-${secondPart}`;
+    } else if (firstPart) {
+      return `(${ddd}) ${firstPart}`;
+    } else if (ddd) {
+      return `(${ddd}`;
+    }
+  }
+
+  return phone;
+}

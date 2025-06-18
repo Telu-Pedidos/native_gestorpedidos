@@ -17,6 +17,7 @@ import {
 } from "@/app/validations/client-validation";
 import { ClientResponse } from "@/app/models/client";
 import useClients from "@/app/hooks/useClients";
+import { formatPhoneNumberInput } from "@/app/helpers/phone";
 
 type ClientFormProps = {
   client?: ClientResponse;
@@ -83,9 +84,12 @@ export default function ClientForm({ client, id }: ClientFormProps) {
             >
               <InputField
                 placeholder="(XX) XXXXX-XXXX"
-                type="text"
-                onChangeText={field.onChange}
+                keyboardType="phone-pad"
                 value={field.value}
+                onChangeText={(text) => {
+                  const formatted = formatPhoneNumberInput(text);
+                  field.onChange(formatted);
+                }}
               />
             </Input>
             {fieldState.error && (
@@ -163,13 +167,9 @@ export default function ClientForm({ client, id }: ClientFormProps) {
           isDisabled={isPending}
         >
           {id ? (
-            <ButtonText className="text-base font-medium">
-              {isPending ? "Alterando..." : "Alterar"}
-            </ButtonText>
+            <ButtonText className="text-base font-medium">Alterar</ButtonText>
           ) : (
-            <ButtonText className="text-base font-medium">
-              {isPending ? "Salvando..." : "Salvar"}
-            </ButtonText>
+            <ButtonText className="text-base font-medium">Salvar</ButtonText>
           )}
         </Button>
         <Button
