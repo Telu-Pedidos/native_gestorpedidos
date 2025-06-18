@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import useNewToast from "@/app/hooks/useNewToast";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/app/models/navigation";
-import { CheckCircleIcon, CloseCircleIcon } from "@/components/ui/icon";
+import { CloseCircleIcon } from "@/components/ui/icon";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList, "Login">;
 
@@ -27,12 +27,12 @@ export default function useLogin() {
           });
           return;
         }
-        toast({
-          title: "Sucesso!",
-          description: "Usuário logado com sucesso!",
-          variant: "success",
-          icon: CheckCircleIcon,
-        });
+        // toast({
+        //   title: "Sucesso!",
+        //   description: "Usuário logado com sucesso!",
+        //   variant: "success",
+        //   icon: CheckCircleIcon,
+        // });
         navigation.navigate("Home");
       } catch (error) {
         console.error("Erro no servidor", error);

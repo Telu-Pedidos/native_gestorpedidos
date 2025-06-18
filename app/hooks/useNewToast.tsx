@@ -16,7 +16,7 @@ import { ColorValue } from "react-native";
 
 interface Toast {
   title: string;
-  description: string;
+  description?: string;
   placement?: ToastPlacement;
   variant?: "default" | "error" | "success";
   duration?: number;

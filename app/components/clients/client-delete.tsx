@@ -1,0 +1,114 @@
+import deleteClient from "@/app/actions/client/delete-client";
+import useNewToast from "@/app/hooks/useNewToast";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogBody,
+  AlertDialogBackdrop,
+} from "@/components/ui/alert-dialog";
+import { Button, ButtonText } from "@/components/ui/button";
+import { Heading } from "@/components/ui/heading";
+import { Text } from "@/components/ui/text";
+import { TrashIcon, TriangleAlertIcon } from "lucide-react-native";
+import { useState, useTransition } from "react";
+import { View } from "react-native";
+
+type ClientDeleteProps = {
+  id: string;
+  name: string;
+  fetchClients: () => Promise<void>;
+};
+
+export function ClientDelete({ id, name, fetchClients }: ClientDeleteProps) {
+  const [isPending, startTransition] = useTransition();
+  const [showAlertDialog, setShowAlertDialog] = useState(false);
+  const { toast } = useNewToast();
+  const handleClose = () => setShowAlertDialog(false);
+
+  async function handleDelete() {
+    startTransition(async () => {
+      try {
+        await deleteClient(id);
+        fetchClients();
+        // toast({ title: "cliente deletado com sucesso", variant: "success" });
+      } catch (error) {
+        console.error(error);
+        toast({
+          title: "ocorreu um erro ao tentar excluir o cliente",
+          variant: "error",
+        });
+      }
+    });
+  }
+
+  return (
+    <>
+      <Button
+        onPress={() => setShowAlertDialog(true)}
+        className="flex flex-row items-center gap-2 rounded-md bg-destructive px-4 py-2"
+      >
+        <TrashIcon size={16} className="text-destructive-foreground" />
+        <ButtonText className="text-destructive-foreground">Excluir</ButtonText>
+      </Button>
+      <AlertDialog
+        isOpen={showAlertDialog}
+        onClose={handleClose}
+        size="full"
+        className="bg-black/60 p-1"
+      >
+        <AlertDialogBackdrop />
+        <AlertDialogContent className="flex flex-col gap-4 rounded-md bg-white">
+          <AlertDialogHeader>
+            <Heading className="text-typography-950 font-semibold" size="md">
+              Excluir o cliente: <Text className="font-bold">{name}</Text>
+            </Heading>
+          </AlertDialogHeader>
+          <AlertDialogBody className="mb-4 mt-3">
+            <View className="mb-4 flex flex-row gap-2 text-destructive">
+              <TriangleAlertIcon size={16} color={"red"} />
+              <Text className="flex flex-col gap-1 text-base font-medium text-destructive">
+                Atenção! Você está prestes a excluir o(a) cliente{" "}
+                <Text className="font-bold">{name}</Text>.
+              </Text>
+            </View>
+            <View className="mb-4">
+              <Text size="sm" className="text-[#666358]">
+                * Não será possível desfazer esta exclusão;
+              </Text>
+              <Text size="sm" className="text-[#666358]">
+                * Não será possível acessar aos dados deste cliente;
+              </Text>
+              <Text size="sm" className="text-[#666358]">
+                * Os pedidos já tirados para este cliente serão mantidos no
+                sistema.
+              </Text>
+            </View>
+          </AlertDialogBody>
+          <AlertDialogFooter className="">
+            <Button
+              disabled={isPending}
+              action="secondary"
+              onPress={handleClose}
+              size="sm"
+              className="bg-secondary"
+            >
+              <ButtonText className="text-foreground">Cancelar</ButtonText>
+            </Button>
+            <Button
+              disabled={isPending}
+              size="sm"
+              onPress={handleDelete}
+              className="bg-destructive"
+            >
+              <ButtonText className="text-destructive-foreground">
+                Excluir
+              </ButtonText>
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  );
+}

@@ -1,10 +1,9 @@
-"use client";
 import { vars } from "nativewind";
 
 export const config = {
   light: vars({
     "--background": "255 255 255", // #F8F8F3
-    "--foreground": "31 21 0", // #F8F8F3
+    "--foreground": "31 21 0", // #1F1500
     "--card": "255 255 255", // #ffffff
     "--card-foreground": "31 21 0", // #1F1500
     "--popover": "255 255 255", // #ffffff
