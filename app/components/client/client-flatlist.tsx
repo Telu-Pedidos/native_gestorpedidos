@@ -16,20 +16,16 @@ import { Edit2Icon } from "lucide-react-native";
 import { ClientDelete } from "./client-delete";
 
 type ClientsFlatListProps = {
-  clients: ClientResponse[];
-  fetchClients: () => Promise<void>;
+  data: ClientResponse[];
+  fetchData: () => Promise<void>;
 };
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
-export function ClientsFlatList({
-  clients,
-  fetchClients,
-}: ClientsFlatListProps) {
+export function ClientsFlatList({ data, fetchData }: ClientsFlatListProps) {
   const navigation = useNavigation<NavigationProps>();
 
   const handleNavigateToClientEdit = (client: ClientResponse) => {
-    console.log("direciou para o editar");
     navigation.navigate("ClientEdit", { client });
   };
 
@@ -43,12 +39,12 @@ export function ClientsFlatList({
 
   return (
     <FlatList
-      data={clients}
+      data={data}
       keyExtractor={(item) => item.id.toString()}
-      contentContainerStyle={{ paddingBottom: 200 }}
+      contentContainerStyle={{ paddingBottom: 150, paddingTop: 20, gap: 16 }}
       renderItem={({ item: client }) => (
         <View className="rounded-xl border border-border bg-white py-4 shadow">
-          <View className="mb-4 flex flex-row items-center justify-between gap-2 border-b border-b-border px-4 py-4">
+          <View className="mb-4 flex flex-row items-start justify-between gap-2 border-b border-b-border px-4 py-4">
             <Text className="mb-2 text-xl font-bold">{client.name}</Text>
             <View className="flex flex-row items-center gap-2">
               <Button
@@ -61,7 +57,7 @@ export function ClientsFlatList({
               <ClientDelete
                 name={client.name}
                 id={client.id}
-                fetchClients={fetchClients}
+                fetchClients={fetchData}
               />
             </View>
           </View>

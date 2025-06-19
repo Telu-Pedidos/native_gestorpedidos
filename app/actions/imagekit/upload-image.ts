@@ -1,31 +1,33 @@
+// import ImageKit from "imagekit";
+// import * as FileSystem from "expo-file-system";
 // import {
-//   IMAGEKIT_PUBLIC_KEY,
 //   IMAGEKIT_PRIVATE_KEY,
+//   IMAGEKIT_PUBLIC_KEY,
 //   IMAGEKIT_URL_ENDPOINT,
 // } from "@env";
 
-// import ImageKit from "imagekit";
-
-// const imageKit = new ImageKit({
+// const imagekit = new ImageKit({
 //   publicKey: IMAGEKIT_PUBLIC_KEY!,
 //   privateKey: IMAGEKIT_PRIVATE_KEY!,
 //   urlEndpoint: IMAGEKIT_URL_ENDPOINT!,
 // });
 
-// export const uploadImage = async (formData: FormData) => {
-//   const image = formData.get("file") as File | null;
-
-//   if (!image) {
-//     throw new Error("A imagem é necessária.");
+// export const uploadImage = async (uri: string) => {
+//   if (!uri) {
+//     throw new Error("URI da imagem é obrigatória.");
 //   }
 
-//   const arrayBuffer = await image.arrayBuffer();
-//   const buffer = Buffer.from(arrayBuffer);
-
 //   try {
-//     const response = await imageKit.upload({
-//       file: buffer,
-//       fileName: image.name,
+//     // Lê a imagem como base64
+//     const base64 = await FileSystem.readAsStringAsync(uri, {
+//       encoding: FileSystem.EncodingType.Base64,
+//     });
+
+//     const fileName = uri.split("/").pop() || "upload.jpg";
+
+//     const response = await imagekit.upload({
+//       file: `data:image/jpeg;base64,${base64}`, // você pode ajustar o mime type se precisar
+//       fileName,
 //     });
 
 //     return response;

@@ -1,59 +1,22 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
+import { RootStackParamList } from "@/app/models/navigation";
 import {
-  ChartColumnIncreasingIcon,
-  CircleUserIcon,
-  ClipboardListIcon,
-  ComponentIcon,
-  HouseIcon,
+  HomeIcon,
+  UsersIcon,
+  BoxesIcon,
+  MenuIcon,
   PackageSearchIcon,
-  StickyNoteIcon,
 } from "lucide-react-native";
 
-export const menuLinks = [
-  {
-    href: "/dashboard",
-    id: "home",
-    name: "Início",
-  },
-  {
-    href: "/dashboard/historico-pedidos",
-    id: "orderHistory",
-    name: "Histórico de Pedidos",
-  },
-  {
-    href: "/dashboard/produtos",
-    id: "products",
-    name: "Produtos",
-  },
-  {
-    href: "/dashboard/categorias",
-    id: "categories",
-    name: "Categorias",
-  },
-  {
-    href: "/dashboard/modelos",
-    id: "models",
-    name: "Modelos",
-  },
-  {
-    href: "/dashboard/clientes",
-    id: "clients",
-    name: "Clientes",
-  },
-  {
-    href: "/dashboard/relatorios",
-    id: "reports",
-    name: "Relatórios",
-  },
-];
+interface TabLink {
+  name: string;
+  icon: React.ElementType;
+  route: keyof RootStackParamList;
+}
 
-//   export const iconsLinks: any = {
-//     home: <HouseIcon />,
-//     orderHistory: <ClipboardListIcon />,
-//     products: <PackageSearchIcon />,
-//     categories: <StickyNoteIcon />,
-//     models: <ComponentIcon />,
-//     clients: <CircleUserIcon />,
-//     reports: <ChartColumnIncreasingIcon />
-//   };
+export const tabLinks: TabLink[] = [
+  { name: "Início", icon: HomeIcon, route: "Home" },
+  { name: "Produtos", icon: PackageSearchIcon, route: "Products" },
+  { name: "Clientes", icon: UsersIcon, route: "Clients" },
+  { name: "Modelos", icon: BoxesIcon, route: "Models" },
+  { name: "Mais", icon: MenuIcon, route: "Menu" },
+];

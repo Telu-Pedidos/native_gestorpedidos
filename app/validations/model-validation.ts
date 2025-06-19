@@ -5,7 +5,7 @@ const ACCEPTED_FILE_TYPES = [
   "image/jpeg",
   "image/jpg",
   "image/png",
-  "image/webp"
+  "image/webp",
 ];
 
 export const modelSchema = z.object({
@@ -16,16 +16,22 @@ export const modelSchema = z.object({
     .max(100, "O nome não pode ter mais de 100 caracteres"),
   imageUrl: z.string().max(2000).optional(),
   file: z
-    .union([z.instanceof(File), z.undefined()])
+    .any()
     .optional()
     .refine(
-      (file) => !file || file.size <= MAX_UPLOAD_SIZE_MB,
-      "O tamanho do arquivo deve ser menor que 3 MB"
+      (file) => {
+        if (!file) return true;
+        return typeof file === "object" && file.uri && file.type;
+      },
+      { message: "Arquivo inválido." },
     )
     .refine(
-      (file) => !file || ACCEPTED_FILE_TYPES.includes(file.type),
-      "O arquivo deve ser JPEG, JPG, PNG ou WEBP"
-    )
+      (file) => {
+        if (!file) return true;
+        return file?.fileSize <= MAX_UPLOAD_SIZE_MB;
+      },
+      { message: "O tamanho do arquivo deve ser menor que 3 MB" },
+    ),
 });
 
 export type ModelFormValues = z.infer<typeof modelSchema>;

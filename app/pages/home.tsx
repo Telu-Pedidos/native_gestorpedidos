@@ -1,14 +1,16 @@
-import { VStack } from "@/components/ui/vstack";
-import ClientsScreen from "./clients/home";
-import { Header } from "../components/header";
+import { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../models/navigation";
+
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 export default function HomeScreen() {
-  return (
-    <>
-      <Header />
-      <VStack className="flex-1 items-center justify-center">
-        <ClientsScreen />
-      </VStack>
-    </>
-  );
+  const navigation = useNavigation<NavigationProps>();
+
+  useEffect(() => {
+    navigation.navigate("Clients");
+  }, []);
+
+  return null;
 }
