@@ -1,33 +1,83 @@
-import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import { useTransition } from "react";
+import {
+  View,
+  TouchableOpacity,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Text } from "@/components/ui/text";
-import { HStack } from "@/components/ui/hstack";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/app/models/navigation";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { tabLinks } from "@/app/utils/links";
+import { allLinks } from "@/app/utils/links";
+import { LogOutIcon } from "lucide-react-native";
+import { Link, LinkText } from "@/components/ui/link";
+import { FooterSection } from "../components/footer-section";
+import logout from "@/app/actions/auth/logout";
+import useNewToast from "../hooks/useNewToast";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 export default function MenuScreen() {
   const navigation = useNavigation<NavigationProps>();
-  const insets = useSafeAreaInsets();
+  const [isPending, startTransition] = useTransition();
+  const { toast } = useNewToast();
+
+  async function handleLogout() {
+    startTransition(async () => {
+      try {
+        await logout();
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Login" }],
+        });
+      } catch (error) {
+        toast({
+          title: "Erro ao desloga",
+          variant: "error",
+        });
+      }
+    });
+  }
 
   return (
-    <View className="flex h-full w-full flex-col border-t border-border bg-white px-4 py-2">
-      <HStack className="flex-flex-col justify-between">
-        {tabLinks.map(({ name, icon: IconComponent, route }) => (
+    <ScrollView className="flex h-full w-full flex-col border-t border-border bg-white py-2 pt-4">
+      <View className="flex flex-col border-b border-b-border px-4 pb-3">
+        {allLinks.map(({ name, icon: IconComponent, route }) => (
           <TouchableOpacity
             key={route}
             onPress={() => navigation.navigate(route as any)}
-            className="flex-1 items-center"
+            className="flex-row items-center gap-4 py-5"
           >
             <IconComponent size={22} color="#4B5563" />
-            <Text className="mt-1 text-xs text-muted-foreground">{name}</Text>
+            <Text className="text-base text-foreground">{name}</Text>
           </TouchableOpacity>
         ))}
-      </HStack>
-    </View>
+      </View>
+      <View className="border-b border-b-border px-4 py-2">
+        <TouchableOpacity
+          onPress={handleLogout}
+          disabled={isPending}
+          className="flex-row items-center gap-4 py-5"
+        >
+          {isPending ? (
+            <ActivityIndicator color="#4B5563" size="small" />
+          ) : (
+            <LogOutIcon size={22} color="#4B5563" />
+          )}
+          <Text className="text-base text-foreground">Sair</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View className="mt-4 px-4 py-2">
+        <Link href="https://bit.ly/m/TeluPersonalizados">
+          <LinkText className="text-base text-foreground">
+            Acesse todos os links
+          </LinkText>
+        </Link>
+      </View>
+
+      <FooterSection />
+    </ScrollView>
   );
 }

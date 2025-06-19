@@ -51,7 +51,10 @@ export default function App() {
               <Stack.Screen
                 name="Menu"
                 component={MenuScreen}
-                options={{ title: "Menu", headerShown: true }}
+                options={{
+                  title: "Menu",
+                  headerShown: true,
+                }}
               />
               <Stack.Screen
                 name="Login"
