@@ -1,10 +1,10 @@
-import { FINISH_ORDER } from "@/app/functions/api";
+import { DEACTIVATE_PRODUCT } from "@/app/functions/api";
 import apiError from "@/app/functions/api-error";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default async function finishOrder(id: string) {
+export default async function deactivateProduct(id: string) {
   try {
-    const { url } = FINISH_ORDER(id);
+    const { url } = DEACTIVATE_PRODUCT(id);
     const token = await AsyncStorage.getItem("token");
     if (!token) throw new Error("Token inválido");
 
@@ -18,7 +18,7 @@ export default async function finishOrder(id: string) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Erro ao finalizar o pedido");
+      throw new Error(errorData.message || "Erro ao desativar o produto");
     }
 
     return { data: "", ok: true, error: "" };

@@ -22,8 +22,6 @@ export default async function login(formData: LoginFormValues) {
     if (!data.token) throw new Error("Token não retornado pela API.");
     await AsyncStorage.setItem("token", String(data.token));
 
-    console.log("data.token: ", data.token);
-
     return { data: null, ok: true, error: "" };
   } catch (error: unknown) {
     return apiError(error);

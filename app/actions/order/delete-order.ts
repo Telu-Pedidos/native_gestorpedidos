@@ -1,13 +1,18 @@
 import { DELETE_ORDER } from "@/app/functions/api";
 import apiError from "@/app/functions/api-error";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default async function deleteOrder(id: string) {
   try {
     const { url } = DELETE_ORDER(id);
+    const token = await AsyncStorage.getItem("token");
+    if (!token) throw new Error("Token inválido");
 
     const response = await fetch(url, {
       method: "DELETE",
-      headers: {},
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     if (!response.ok) {

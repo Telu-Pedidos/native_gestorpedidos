@@ -1,15 +1,11 @@
-import { GET_ORDER_ID } from "@/app/functions/api";
+import { GET_PRODUCTS } from "@/app/functions/api";
 import apiError from "@/app/functions/api-error";
-import { OrderResponse } from "@/app/models/order";
+import { ProductResponse } from "@/app/models/product";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type getOrderParams = {
-  id: string;
-};
-
-export default async function getOrderId({ id }: getOrderParams) {
+export default async function getProducts() {
   try {
-    const { url } = GET_ORDER_ID(id);
+    const { url } = GET_PRODUCTS();
     const token = await AsyncStorage.getItem("token");
     if (!token) throw new Error("Token inválido");
 
@@ -20,12 +16,8 @@ export default async function getOrderId({ id }: getOrderParams) {
       },
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Erro ao buscar o pedido.");
-    }
-
-    const data = (await response.json()) as OrderResponse;
+    if (!response.ok) throw new Error("Erro ao buscar os produtos.");
+    const data = (await response.json()) as ProductResponse[];
 
     return { data, ok: true, error: "" };
   } catch (error) {

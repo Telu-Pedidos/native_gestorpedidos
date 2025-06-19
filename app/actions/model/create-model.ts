@@ -1,15 +1,17 @@
-import { FINISH_ORDER } from "@/app/functions/api";
+import { POST_MODEL } from "@/app/functions/api";
 import apiError from "@/app/functions/api-error";
+import { ModelFormValues } from "@/app/validations/model-validation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default async function finishOrder(id: string) {
+export default async function createModel(formData: ModelFormValues) {
   try {
-    const { url } = FINISH_ORDER(id);
+    const { url } = POST_MODEL();
     const token = await AsyncStorage.getItem("token");
     if (!token) throw new Error("Token inválido");
 
     const response = await fetch(url, {
-      method: "PATCH",
+      method: "POST",
+      body: JSON.stringify(formData),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -18,7 +20,7 @@ export default async function finishOrder(id: string) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Erro ao finalizar o pedido");
+      throw new Error(errorData.message || "Erro ao cadastrar o modelo");
     }
 
     return { data: "", ok: true, error: "" };

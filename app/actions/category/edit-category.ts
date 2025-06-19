@@ -1,15 +1,20 @@
-import { FINISH_ORDER } from "@/app/functions/api";
+import { PUT_CATEGORY } from "@/app/functions/api";
 import apiError from "@/app/functions/api-error";
+import { CategoryFormValues } from "@/app/validations/category-validation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default async function finishOrder(id: string) {
+export default async function editCategory(
+  formData: CategoryFormValues,
+  id: string,
+) {
   try {
-    const { url } = FINISH_ORDER(id);
+    const { url } = PUT_CATEGORY(id);
     const token = await AsyncStorage.getItem("token");
     if (!token) throw new Error("Token inválido");
 
     const response = await fetch(url, {
-      method: "PATCH",
+      method: "PUT",
+      body: JSON.stringify(formData),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -18,7 +23,7 @@ export default async function finishOrder(id: string) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Erro ao finalizar o pedido");
+      throw new Error(errorData.message || "Erro ao editar a categoria");
     }
 
     return { data: "", ok: true, error: "" };

@@ -1,27 +1,24 @@
-import { FINISH_ORDER } from "@/app/functions/api";
+import { DELETE_MODEL } from "@/app/functions/api";
 import apiError from "@/app/functions/api-error";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default async function finishOrder(id: string) {
+export default async function deleteModel(id: string) {
   try {
-    const { url } = FINISH_ORDER(id);
+    const { url } = DELETE_MODEL(id);
     const token = await AsyncStorage.getItem("token");
     if (!token) throw new Error("Token inválido");
 
     const response = await fetch(url, {
-      method: "PATCH",
+      method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: "Bearer " + token,
       },
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Erro ao finalizar o pedido");
+      throw new Error(errorData.message || "Erro ao deletar o modelo.");
     }
-
-    return { data: "", ok: true, error: "" };
   } catch (error: unknown) {
     return apiError(error);
   }
