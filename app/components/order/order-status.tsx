@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import {
   OrderUtilsProps,
   renderStatusIcon,
   renderStatusText,
   statusStyles,
+  statusStylesRN,
 } from "./order-utils";
 import { Status } from "@/app/validations/order-validation";
 
@@ -19,7 +20,7 @@ export default function OrderStatus({
   orderSize,
   selectedStatus = "PENDING",
 }: OrderStatusProps) {
-  const styles = statusStyles[status];
+  const styles = statusStylesRN[status];
   const isActive = selectedStatus && status === activeStatus;
 
   const handleStatusChange = () => {
@@ -28,30 +29,49 @@ export default function OrderStatus({
 
   return (
     <TouchableOpacity
-      className={`flex-row items-center gap-2 rounded border p-1 ${styles.border} ${styles.background} ${
-        isActive
-          ? "opacity-100"
-          : "border-inherit bg-inherit opacity-60 transition-opacity hover:opacity-80"
-      }`}
+      style={[
+        stylesWrapper.container,
+        styles.border,
+        styles.background,
+        !isActive && stylesWrapper.inactive,
+      ]}
       onPress={handleStatusChange}
     >
       <View
-        className={`flex size-6 items-center justify-center rounded-full shadow-sm ${styles.iconBg}`}
+        className={`flex size-6 flex-row items-center justify-center rounded-full ${styles.iconBg}`}
       >
-        {renderStatusIcon(status)}
+        {renderStatusIcon({ status, iconColor: styles.iconBg.backgroundColor })}
       </View>
 
       <View className="flex-row items-center gap-2 text-sm font-semibold text-order">
-        <Text className="hidden sm:block">{renderStatusText(status)}</Text>
+        <Text className="text-xs text-foreground">
+          {renderStatusText(status)}
+        </Text>
 
         {orderSize > 0 && (
           <View
-            className={`flex size-4 items-center justify-center rounded-full bg-destructive text-xs font-normal text-white ${styles.border} ${styles.background}`}
+            className={`mx-auto flex size-4 items-center justify-center rounded-full bg-destructive text-xs font-normal text-white ${styles.background}`}
           >
-            <Text>{orderSize}</Text>
+            <Text className="flex flex-row items-center justify-center text-center text-xs text-white">
+              {orderSize}
+            </Text>
           </View>
         )}
       </View>
     </TouchableOpacity>
   );
 }
+
+const stylesWrapper = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    borderRadius: 6,
+    borderWidth: 1,
+    padding: 4,
+  },
+  inactive: {
+    opacity: 0.6,
+  },
+});

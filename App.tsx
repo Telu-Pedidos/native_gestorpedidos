@@ -12,7 +12,6 @@ import { BottomTab } from "@/app/components/bottom-tab";
 // pages
 import WelcomeScreen from "@/app/pages/welcome";
 import LoginScreen from "@/app/pages/login";
-import HomeScreen from "@/app/pages/home";
 import AuthLoadingScreen from "@/app/pages/auth-loading-screen";
 import ClientsScreen from "@/app/pages/client/home";
 import ClientEditScreen from "@/app/pages/client/edit";
@@ -28,6 +27,7 @@ import ProductsScreen from "./app/pages/product/home";
 import ProductEditScreen from "./app/pages/product/edit";
 import ProductRegisterScreen from "./app/pages/product/register";
 import MenuScreen from "./app/pages/menu";
+import OrdersScreen from "./app/pages/order/home";
 
 const Stack = createNativeStackNavigator();
 
@@ -68,7 +68,7 @@ export default function App() {
               />
               <Stack.Screen
                 name="Home"
-                component={HomeScreen}
+                component={OrdersScreen}
                 options={{ title: "Home", headerShown: false }}
               />
 

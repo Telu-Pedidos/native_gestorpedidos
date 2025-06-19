@@ -2,7 +2,7 @@ import { OrderResponse } from "@/app/models/order";
 import OrderStatus from "./order-status";
 import useOrders from "@/app/hooks/useOrders";
 import { statuses } from "@/app/validations/order-validation";
-import { View } from "react-native";
+import { ScrollView } from "react-native";
 
 export default function OrderStatusManager({
   orders,
@@ -12,7 +12,11 @@ export default function OrderStatusManager({
   const { activeStatus, setActiveStatus } = useOrders({});
 
   return (
-    <View className="clock:flex-nowrap flex flex-wrap gap-3">
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ gap: 12, marginTop: 32 }}
+    >
       {statuses.map((orderStatus) => {
         const activeOrdersData =
           orders?.filter((order) => order.status === orderStatus) ?? [];
@@ -29,6 +33,6 @@ export default function OrderStatusManager({
           />
         );
       })}
-    </View>
+    </ScrollView>
   );
 }

@@ -12,16 +12,22 @@ export type OrderUtilsProps = {
   setActiveStatus: (status: Status) => void;
 };
 
-export const renderStatusIcon = (status: Status) => {
+export const renderStatusIcon = ({
+  status,
+  iconColor,
+}: {
+  status: Status;
+  iconColor: string;
+}) => {
   switch (status) {
     case "PENDING":
-      return <CircleMinusIcon className="size-3 text-white" />;
+      return <CircleMinusIcon color={iconColor} size={16} />;
     case "ACCEPTED":
-      return <ThumbsUpIcon className="size-3 text-white" />;
+      return <ThumbsUpIcon color={iconColor} size={16} />;
     case "PREPARATION":
-      return <AlarmClock className="size-3 text-white" />;
+      return <AlarmClock color={iconColor} size={16} />;
     case "COMPLETED":
-      return <CircleCheckIcon className="size-3 text-white" />;
+      return <CircleCheckIcon color={iconColor} size={16} />;
   }
 };
 
@@ -64,6 +70,33 @@ const createStatusStyles = (suffix: string = "") => ({
     text: "text-[#303C34]",
   },
 });
+
+export const statusStylesRN = {
+  PENDING: {
+    border: { borderColor: "#FFD166" }, // amarelo
+    background: { backgroundColor: "#FFF7E0" },
+    iconBg: { backgroundColor: "#FFD166" },
+    text: { color: "#92400E" },
+  },
+  ACCEPTED: {
+    border: { borderColor: "#6E06D6" }, // roxo
+    background: { backgroundColor: "#F3E8FF" },
+    iconBg: { backgroundColor: "#6E06D6" },
+    text: { color: "#4B0082" },
+  },
+  PREPARATION: {
+    border: { borderColor: "#FF8266" }, // laranja
+    background: { backgroundColor: "#FFECE6" },
+    iconBg: { backgroundColor: "#FF8266" },
+    text: { color: "#A83224" },
+  },
+  COMPLETED: {
+    border: { borderColor: "#06D6A0" }, // verde-água
+    background: { backgroundColor: "#D1FAF0" },
+    iconBg: { backgroundColor: "#06D6A0" },
+    text: { color: "#065F46" },
+  },
+};
 
 export const statusStyles = createStatusStyles("/20");
 export const statusStylesCard = createStatusStyles();
