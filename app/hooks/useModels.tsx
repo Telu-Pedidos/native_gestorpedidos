@@ -130,6 +130,7 @@ export default function useModels({ id }: { id?: string }) {
   const handleCancel = () => {
     navigation.navigate("Models");
   };
+
   const handleImageChange = (file: File | null) => {
     if (file) {
       setSelectedFile(file);

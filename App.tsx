@@ -21,6 +21,9 @@ import ClientRegisterScreen from "@/app/pages/client/register";
 import ModelsScreen from "@/app/pages/model/home";
 import ModelRegisterScreen from "@/app/pages/model/register";
 import ModelEditScreen from "./app/pages/model/edit";
+import CategoriesScreen from "./app/pages/category/home";
+import CategoryEditScreen from "./app/pages/category/edit";
+import CategoryRegisterScreen from "./app/pages/category/register";
 
 const Stack = createNativeStackNavigator();
 
@@ -56,6 +59,7 @@ export default function App() {
                 component={HomeScreen}
                 options={{ title: "Home", headerShown: false }}
               />
+
               <Stack.Screen
                 name="Clients"
                 component={ClientsScreen}
@@ -71,6 +75,7 @@ export default function App() {
                 component={ClientRegisterScreen}
                 options={{ title: "Cadastrar cliente", headerShown: true }}
               />
+
               <Stack.Screen
                 name="Models"
                 component={ModelsScreen}
@@ -85,6 +90,22 @@ export default function App() {
                 name="ModelRegister"
                 component={ModelRegisterScreen}
                 options={{ title: "Cadastrar modelo", headerShown: true }}
+              />
+
+              <Stack.Screen
+                name="Categories"
+                component={CategoriesScreen}
+                options={{ title: "Categorias", headerShown: false }}
+              />
+              <Stack.Screen
+                name="CategoryEdit"
+                component={CategoryEditScreen}
+                options={{ title: "Editar categoria", headerShown: true }}
+              />
+              <Stack.Screen
+                name="CategoryRegister"
+                component={CategoryRegisterScreen}
+                options={{ title: "Cadastrar categoria", headerShown: true }}
               />
             </Stack.Navigator>
             <StatusBar style="auto" />

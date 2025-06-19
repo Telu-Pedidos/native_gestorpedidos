@@ -17,6 +17,6 @@ export const tabLinks: TabLink[] = [
   { name: "Início", icon: HomeIcon, route: "Home" },
   { name: "Produtos", icon: PackageSearchIcon, route: "Products" },
   { name: "Clientes", icon: UsersIcon, route: "Clients" },
-  { name: "Modelos", icon: BoxesIcon, route: "Models" },
+  { name: "Categorias", icon: BoxesIcon, route: "Categories" },
   { name: "Mais", icon: MenuIcon, route: "Menu" },
 ];

@@ -1,3 +1,4 @@
+import { CategoryResponse } from "./category";
 import { ClientResponse } from "./client";
 import { ModelResponse } from "./model";
 import { OrderResponse } from "./order";
@@ -29,4 +30,9 @@ export type RootStackParamList = {
   Model: undefined;
   ModelEdit: { model: ModelResponse };
   ModelRegister: undefined;
+
+  Categories: undefined;
+  Category: undefined;
+  CategoryEdit: { category: CategoryResponse };
+  CategoryRegister: undefined;
 };
