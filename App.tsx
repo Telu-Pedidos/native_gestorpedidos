@@ -24,6 +24,10 @@ import ModelEditScreen from "./app/pages/model/edit";
 import CategoriesScreen from "./app/pages/category/home";
 import CategoryEditScreen from "./app/pages/category/edit";
 import CategoryRegisterScreen from "./app/pages/category/register";
+import ProductsScreen from "./app/pages/product/home";
+import ProductEditScreen from "./app/pages/product/edit";
+import ProductRegisterScreen from "./app/pages/product/register";
+import MenuScreen from "./app/pages/menu";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +47,11 @@ export default function App() {
                 name="NotFound"
                 component={NotFound}
                 options={{ title: "Página não encontrada", headerShown: false }}
+              />
+              <Stack.Screen
+                name="Menu"
+                component={MenuScreen}
+                options={{ title: "Menu", headerShown: true }}
               />
               <Stack.Screen
                 name="Login"
@@ -106,6 +115,22 @@ export default function App() {
                 name="CategoryRegister"
                 component={CategoryRegisterScreen}
                 options={{ title: "Cadastrar categoria", headerShown: true }}
+              />
+
+              <Stack.Screen
+                name="Products"
+                component={ProductsScreen}
+                options={{ title: "Produtos", headerShown: false }}
+              />
+              <Stack.Screen
+                name="ProductEdit"
+                component={ProductEditScreen}
+                options={{ title: "Editar produto", headerShown: true }}
+              />
+              <Stack.Screen
+                name="ProductRegister"
+                component={ProductRegisterScreen}
+                options={{ title: "Cadastrar produto", headerShown: true }}
               />
             </Stack.Navigator>
             <StatusBar style="auto" />

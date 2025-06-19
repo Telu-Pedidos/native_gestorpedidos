@@ -19,7 +19,7 @@ export type RootStackParamList = {
   Products: undefined;
   Product: undefined;
   ProductEdit: { product: ProductResponse };
-  ProductRegister: { product: ProductResponse };
+  ProductRegister: undefined;
 
   Clients: undefined;
   Client: undefined;
