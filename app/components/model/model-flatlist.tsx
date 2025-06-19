@@ -32,7 +32,7 @@ export function ModelsFlatList({ data, fetchData }: ModelsFlatListProps) {
       contentContainerStyle={{ paddingBottom: 150 }}
       renderItem={({ item: model }) => (
         <View className="rounded-xl border border-border bg-white py-4 shadow">
-          <View className="mb-4 flex flex-row items-start justify-between gap-2 border-b border-b-border px-4 py-4">
+          <View className="mb-4 flex flex-row flex-wrap items-start justify-between gap-2 border-b border-b-border px-4 py-4">
             <View className="flex flex-col gap-2">
               <Image
                 size="sm"
@@ -47,10 +47,12 @@ export function ModelsFlatList({ data, fetchData }: ModelsFlatListProps) {
             <View className="flex flex-row items-center gap-2">
               <Button
                 onPress={() => handleNavigateToModelEdit(model)}
-                className="flex flex-row items-center gap-2 rounded-md bg-secondary px-4 py-2"
+                className="flex flex-row items-center gap-2 rounded-md bg-secondary px-2 py-1"
               >
                 <Edit2Icon size={16} className="text-foreground" />
-                <ButtonText className="text-foreground">Editar</ButtonText>
+                <ButtonText className="text-sm text-foreground">
+                  Editar
+                </ButtonText>
               </Button>
               <ModelDelete
                 name={model.name}

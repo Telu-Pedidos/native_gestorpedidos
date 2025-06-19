@@ -44,7 +44,6 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
   const handleNewStatusOrder = async (id: string, newStatus: Status) => {
     try {
       await newStatusOrder({ id, newStatus });
-      toast({ title: "Pedido atualizado com sucesso.", variant: "success" });
     } catch (error) {
       console.error("Erro no servidor", error);
       toast({
@@ -57,7 +56,6 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
   const handleFinishOrder = async (id: string) => {
     try {
       await finishOrder(id);
-      toast({ title: "Pedido finalizado com sucesso.", variant: "success" });
     } catch (error) {
       console.error("Erro no servidor", error);
       toast({
@@ -77,7 +75,6 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
         });
         return;
       }
-      toast({ title: "Pedido cadastrado com sucesso!", variant: "success" });
       navigation.navigate("Home");
     } catch (error) {
       console.error("Erro no servidor", error);
@@ -98,7 +95,6 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
         });
         return;
       }
-      toast({ title: "Pedido alterado com sucesso!", variant: "success" });
     } catch (error) {
       console.error("Erro no servidor", error);
       toast({

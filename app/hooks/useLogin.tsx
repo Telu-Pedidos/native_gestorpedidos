@@ -27,12 +27,6 @@ export default function useLogin() {
           });
           return;
         }
-        // toast({
-        //   title: "Sucesso!",
-        //   description: "Usuário logado com sucesso!",
-        //   variant: "success",
-        //   icon: CheckCircleIcon,
-        // });
         navigation.navigate("Home");
       } catch (error) {
         console.error("Erro no servidor", error);

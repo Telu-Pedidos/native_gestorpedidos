@@ -82,10 +82,6 @@ export default function useModels({ id }: { id?: string }) {
         });
         return;
       }
-      toast({
-        title: "Modelo cadastrado com sucesso!",
-        variant: "success",
-      });
       navigation.navigate("Models");
     } catch (error) {
       console.error("Erro no servidor", error);
@@ -113,10 +109,6 @@ export default function useModels({ id }: { id?: string }) {
         });
         return;
       }
-      toast({
-        title: "Modelo alterado com sucesso!",
-        variant: "success",
-      });
       navigation.navigate("Models");
     } catch (error) {
       console.error("Erro no servidor", error);

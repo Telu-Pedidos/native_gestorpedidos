@@ -41,7 +41,6 @@ export default function useClients({ id }: { id?: string }) {
         toast({ title: result.error, variant: "error" });
         return;
       }
-      toast({ title: "Cliente cadastrado com sucesso!", variant: "success" });
       navigation.navigate("Clients");
     } catch (error) {
       toast({
@@ -65,7 +64,6 @@ export default function useClients({ id }: { id?: string }) {
         });
         return;
       }
-      // toast({ title: "Cliente alterado com sucesso!", variant: "success" });
       navigation.navigate("Clients");
     } catch (error) {
       console.error("Erro no servidor", error);

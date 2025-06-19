@@ -46,7 +46,7 @@ export function CategoryDelete({ id, name, fetchData }: CategoryDeleteProps) {
     <>
       <Button
         onPress={() => setShowAlertDialog(true)}
-        className="flex flex-row items-center gap-2 rounded-md bg-destructive px-4 py-2"
+        className="flex flex-row items-center gap-2 rounded-md bg-destructive px-2 py-1"
       >
         <TrashIcon size={16} className="text-destructive-foreground" />
         <ButtonText className="text-destructive-foreground">Excluir</ButtonText>

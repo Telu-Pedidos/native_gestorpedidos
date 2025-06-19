@@ -32,7 +32,6 @@ export function ClientDelete({ id, name, fetchClients }: ClientDeleteProps) {
       try {
         await deleteClient(id);
         fetchClients();
-        // toast({ title: "cliente deletado com sucesso", variant: "success" });
       } catch (error) {
         console.error(error);
         toast({
@@ -47,10 +46,12 @@ export function ClientDelete({ id, name, fetchClients }: ClientDeleteProps) {
     <>
       <Button
         onPress={() => setShowAlertDialog(true)}
-        className="flex flex-row items-center gap-2 rounded-md bg-destructive px-4 py-2"
+        className="flex flex-row items-center gap-2 rounded-md bg-destructive px-2 py-1"
       >
-        <TrashIcon size={16} className="text-destructive-foreground" />
-        <ButtonText className="text-destructive-foreground">Excluir</ButtonText>
+        <TrashIcon size={14} className="text-destructive-foreground" />
+        <ButtonText className="text-sm text-destructive-foreground">
+          Excluir
+        </ButtonText>
       </Button>
       <AlertDialog
         isOpen={showAlertDialog}
