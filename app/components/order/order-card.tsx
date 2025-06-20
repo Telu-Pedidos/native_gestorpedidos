@@ -22,13 +22,19 @@ import { Status } from "@/app/validations/order-validation";
 import { useState } from "react";
 import { OrderDetails } from "./order-details";
 import { renderStatusText, statusStylesRN } from "./order-utils";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "@/app/models/navigation";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {
   order: OrderResponse;
   fetchData: () => Promise<void>;
 };
 
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
+
 export function OrderCard({ order, fetchData }: Props) {
+  const navigation = useNavigation<NavigationProps>();
   const [showAlertDialog, setShowAlertDialog] = useState(false);
   const status = order.status as Status;
   const styles = statusStylesRN[status];
@@ -111,6 +117,7 @@ export function OrderCard({ order, fetchData }: Props) {
           status={order.status}
           fetchOrders={fetchData}
           onClose={handleClose}
+          navigation={navigation}
         />
       </AlertDialog>
     </>

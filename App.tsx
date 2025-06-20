@@ -29,11 +29,13 @@ import MenuScreen from "./app/pages/menu";
 import OrdersScreen from "./app/pages/order/home";
 import OrderRegisterScreen from "./app/pages/order/register";
 import { LogBox } from "react-native";
+import OrderEditScreen from "./app/pages/order/edit";
 
 const Stack = createNativeStackNavigator();
 
 LogBox.ignoreLogs([
   "VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.",
+  "WARN Some other specific warning message from a library.",
 ]);
 
 export default function App() {
@@ -146,11 +148,11 @@ export default function App() {
                 component={OrdersScreen}
                 options={{ title: "Pedidos", headerShown: false }}
               />
-              {/* <Stack.Screen
+              <Stack.Screen
                 name="OrderEdit"
-                component={ProductEditScreen}
+                component={OrderEditScreen}
                 options={{ title: "Editar pedido", headerShown: true }}
-              /> */}
+              />
               <Stack.Screen
                 name="OrderRegister"
                 component={OrderRegisterScreen}

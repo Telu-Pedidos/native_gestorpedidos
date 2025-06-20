@@ -91,7 +91,7 @@ export default function OrdersScreen() {
         {filteredOrders.length > 0 ? (
           <OrdersFlatList data={filteredOrders} fetchData={fetchOrders} />
         ) : (
-          <Text className="mt-4 text-center text-gray-500">
+          <Text className="mt-10 text-center text-muted-foreground">
             Nenhum pedido encontrado com este filtro.
           </Text>
         )}

@@ -44,59 +44,29 @@ export const renderStatusText = (status: Status) => {
   }
 };
 
-// const createStatusStyles = (suffix: string = "") => ({
-//   PENDING: {
-//     border: `border-pending`,
-//     background: `bg-pending${suffix}`,
-//     iconBg: "bg-pending",
-//     text: "text-active",
-//   },
-//   ACCEPTED: {
-//     border: `border-accepted`,
-//     background: `bg-accepted${suffix}`,
-//     iconBg: "bg-accepted",
-//     text: "text-white",
-//   },
-//   PREPARATION: {
-//     border: `border-preparation`,
-//     background: `bg-preparation${suffix}`,
-//     iconBg: "bg-preparation",
-//     text: "text-white",
-//   },
-//   COMPLETED: {
-//     border: `border-completed`,
-//     background: `bg-completed${suffix}`,
-//     iconBg: "bg-completed",
-//     text: "text-[#303C34]",
-//   },
-// });
-
 export const statusStylesRN = {
   PENDING: {
-    border: { borderColor: "#FFD166" }, // amarelo
+    border: { borderColor: "#FFD166" },
     background: { backgroundColor: "#FFF7E0" },
     iconBg: { backgroundColor: "#FFD166" },
     text: { color: "#92400E" },
   },
   ACCEPTED: {
-    border: { borderColor: "#6E06D6" }, // roxo
+    border: { borderColor: "#6E06D6" },
     background: { backgroundColor: "#F3E8FF" },
     iconBg: { backgroundColor: "#6E06D6" },
     text: { color: "#4B0082" },
   },
   PREPARATION: {
-    border: { borderColor: "#FF8266" }, // laranja
+    border: { borderColor: "#FF8266" },
     background: { backgroundColor: "#FFECE6" },
     iconBg: { backgroundColor: "#FF8266" },
     text: { color: "#A83224" },
   },
   COMPLETED: {
-    border: { borderColor: "#06D6A0" }, // verde-água
+    border: { borderColor: "#06D6A0" },
     background: { backgroundColor: "#D1FAF0" },
     iconBg: { backgroundColor: "#06D6A0" },
     text: { color: "#065F46" },
   },
 };
-
-// export const statusStyles = createStatusStyles("/20");
-// export const statusStylesCard = createStatusStyles();

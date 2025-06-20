@@ -77,35 +77,6 @@ export default function ProductState({ id, active }: ProductStateProps) {
       >
         <State active={isActive}>{isActive ? "Disponível" : "Esgotado"}</State>
       </TouchableOpacity>
-
-      {/* <Modal
-        visible={modalVisible}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <TouchableOpacity
-          style={styles.modalOverlay}
-          activeOpacity={1}
-          onPressOut={() => setModalVisible(false)}
-        >
-          <View style={styles.modalContent}>
-            <TouchableOpacity
-              onPress={isActive ? handleDeactivate : handleActivate}
-              style={styles.optionButton}
-              disabled={isPending}
-            >
-              {isPending ? (
-                <ActivityIndicator size="small" color="#000" />
-              ) : (
-                <State active={!isActive}>
-                  {isActive ? "Esgotado" : "Disponível"}
-                </State>
-              )}
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-      </Modal> */}
     </View>
   );
 }

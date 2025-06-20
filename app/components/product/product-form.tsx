@@ -96,6 +96,17 @@ export default function ProductForm({ product, id }: ProductFormProps) {
     }
   }, [models]);
 
+  useEffect(() => {
+    if (categories && categories.length > 0) {
+      setCategoryItems(
+        categories.map((cat) => ({
+          label: cat.name,
+          value: cat.id,
+        })),
+      );
+    }
+  }, [categories]);
+
   return (
     <ScrollView>
       <View className="mb-20 w-full gap-5">
@@ -218,6 +229,7 @@ export default function ProductForm({ product, id }: ProductFormProps) {
               </FormControlLabel>
               <DropDownPicker
                 open={openCategory}
+                listMode="MODAL"
                 value={field.value as any}
                 items={categoryItems}
                 setOpen={setOpenCategory}
@@ -227,6 +239,20 @@ export default function ProductForm({ product, id }: ProductFormProps) {
                 zIndex={3000}
                 zIndexInverse={1000}
                 disabled={isPending}
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  borderColor: "#E0E0E0",
+                  borderRadius: 8,
+                  minHeight: 50,
+                }}
+                listItemLabelStyle={{
+                  fontSize: 16,
+                  color: "#1F1500",
+                }}
+                selectedItemContainerStyle={{
+                  backgroundColor: "#ffc60a",
+                }}
+                modalTitle="Selecione a categoria"
               />
               {fieldState.error && (
                 <FormControlErrorText className="text-destructive">
@@ -250,6 +276,7 @@ export default function ProductForm({ product, id }: ProductFormProps) {
 
               <DropDownPicker
                 open={openModel}
+                listMode="MODAL"
                 value={field.value as any}
                 items={modelItems}
                 setOpen={setOpenModel}
@@ -259,6 +286,20 @@ export default function ProductForm({ product, id }: ProductFormProps) {
                 zIndex={2000}
                 zIndexInverse={900}
                 disabled={isPending}
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  borderColor: "#E0E0E0",
+                  borderRadius: 8,
+                  minHeight: 50,
+                }}
+                listItemLabelStyle={{
+                  fontSize: 16,
+                  color: "#1F1500",
+                }}
+                selectedItemContainerStyle={{
+                  backgroundColor: "#ffc60a",
+                }}
+                modalTitle="Selecione a categoria"
               />
 
               {fieldState.error && (

@@ -43,9 +43,9 @@ export function ProductsFlatList({ data, fetchData }: ProductsFlatListProps) {
                 }}
                 alt={product.name}
               />
-              <View className="mb-2 flex flex-row items-center gap-1">
-                <Text className="text-xl font-bold">{product.name} - </Text>
-                <Text className="text-xl font-bold">
+              <View className="mb-2 flex flex-row flex-wrap items-center gap-1">
+                <Text className="text-lg font-bold">{product.name} - </Text>
+                <Text className="text-lg font-bold">
                   {formatPrice(product.price)}
                 </Text>
               </View>

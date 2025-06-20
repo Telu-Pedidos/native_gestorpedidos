@@ -16,11 +16,16 @@ import { RootStackParamList } from "../models/navigation";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
-export default function useOrders({ id }: { id?: string }) {
+export default function useOrders({
+  id,
+  navigation,
+}: {
+  id?: string;
+  navigation?: NavigationProps;
+}) {
   const { toast } = useNewToast();
   const [activeStatus, setActiveStatus] = useState<Status | null>(null);
   const [isPending, startTransition] = useTransition();
-  const navigation = useNavigation<NavigationProps>();
 
   const handleNewStatusOrder = useCallback(
     async (orderId: string, newStatus: Status) => {
@@ -57,6 +62,7 @@ export default function useOrders({ id }: { id?: string }) {
           toast({ title: result.error, variant: "error" });
           return;
         }
+        if (!navigation) return;
         navigation.navigate("Orders");
       } catch (error) {
         toast({ title: "Erro ao cadastrar o pedido.", variant: "error" });
@@ -114,6 +120,7 @@ export default function useOrders({ id }: { id?: string }) {
   );
 
   const handleCancel = useCallback(() => {
+    if (!navigation) return;
     navigation.navigate("Orders");
   }, [navigation]);
 
