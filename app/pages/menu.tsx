@@ -28,9 +28,10 @@ export default function MenuScreen() {
     startTransition(async () => {
       try {
         await logout();
+        navigation.navigate("Login");
       } catch (err) {
         toast({
-          title: "Erro ao deslogar.",
+          title: "Erro ao deslogar. Tente novamente.",
           variant: "error",
         });
       }

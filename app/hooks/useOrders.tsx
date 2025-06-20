@@ -26,10 +26,6 @@ export default function useOrders({ id }: { id?: string }) {
     async (orderId: string, newStatus: Status) => {
       try {
         await newStatusOrder({ id: orderId, newStatus });
-        toast({
-          title: "Status do pedido atualizado com sucesso!",
-          variant: "success",
-        });
       } catch (error) {
         console.error("Erro ao atualizar status:", error);
         toast({
@@ -45,7 +41,6 @@ export default function useOrders({ id }: { id?: string }) {
     async (orderId: string) => {
       try {
         await finishOrder(orderId);
-        toast({ title: "Pedido finalizado com sucesso!", variant: "success" });
       } catch (error) {
         console.error("Erro ao finalizar pedido:", error);
         toast({ title: "Erro ao finalizar o pedido.", variant: "error" });
@@ -62,7 +57,6 @@ export default function useOrders({ id }: { id?: string }) {
           toast({ title: result.error, variant: "error" });
           return;
         }
-        toast({ title: "Pedido cadastrado com sucesso!", variant: "success" });
         navigation.navigate("Orders");
       } catch (error) {
         toast({ title: "Erro ao cadastrar o pedido.", variant: "error" });
@@ -79,7 +73,6 @@ export default function useOrders({ id }: { id?: string }) {
           toast({ title: result.error, variant: "error" });
           return;
         }
-        toast({ title: "Pedido editado com sucesso!", variant: "success" });
       } catch (error) {
         toast({ title: "Erro ao editar o pedido.", variant: "error" });
       }
