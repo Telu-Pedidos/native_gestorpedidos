@@ -28,8 +28,13 @@ import ProductRegisterScreen from "./app/pages/product/register";
 import MenuScreen from "./app/pages/menu";
 import OrdersScreen from "./app/pages/order/home";
 import OrderRegisterScreen from "./app/pages/order/register";
+import { LogBox } from "react-native";
 
 const Stack = createNativeStackNavigator();
+
+LogBox.ignoreLogs([
+  "VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.",
+]);
 
 export default function App() {
   return (
