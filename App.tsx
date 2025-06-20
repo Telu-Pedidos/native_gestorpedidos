@@ -7,7 +7,6 @@ import { View } from "react-native";
 
 // components
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
-import { BottomTab } from "@/app/components/bottom-tab";
 
 // pages
 import WelcomeScreen from "@/app/pages/welcome";
@@ -154,7 +153,6 @@ export default function App() {
               />
             </Stack.Navigator>
             <StatusBar style="auto" />
-            <BottomTab />
           </View>
         </NavigationContainer>
       </GluestackUIProvider>

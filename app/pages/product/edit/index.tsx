@@ -6,6 +6,7 @@ import LoadingComponent from "@/app/components/loading";
 import { ProductResponse } from "@/app/models/product";
 import getProductId from "@/app/actions/product/get-product-id";
 import ProductForm from "@/app/components/product/product-form";
+import { BottomTab } from "@/app/components/bottom-tab";
 
 type Props = RouteProp<RootStackParamList, "ProductEdit">;
 
@@ -33,13 +34,17 @@ export default function ProductEditScreen() {
     fetchProduct();
   }, [id]);
 
-  if (isPending) {
-    return <LoadingComponent />;
-  }
-
   return (
-    <View className="flex min-h-full flex-col gap-10 bg-white p-4">
-      {product && <ProductForm product={product} id={String(id)} />}
-    </View>
+    <>
+      {isPending ? (
+        <LoadingComponent />
+      ) : (
+        <View className="flex min-h-full flex-col gap-10 bg-white p-4">
+          {product && <ProductForm product={product} id={String(id)} />}
+        </View>
+      )}
+
+      <BottomTab />
+    </>
   );
 }

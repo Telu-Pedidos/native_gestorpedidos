@@ -8,6 +8,7 @@ import { ButtonRegister } from "@/app/components/button-register";
 import { CategoryResponse } from "@/app/models/category";
 import getCategories from "@/app/actions/category/get-categories";
 import { CategoriesFlatList } from "@/app/components/category/category-flatlist";
+import { BottomTab } from "@/app/components/bottom-tab";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
@@ -67,6 +68,7 @@ export default function CategoriesScreen() {
       </ScrollView>
 
       <ButtonRegister handleAction={handleNavigateToCreate} />
+      <BottomTab />
     </>
   );
 }

@@ -5,20 +5,17 @@ import { Text } from "@/components/ui/text";
 import { HStack } from "@/components/ui/hstack";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/app/models/navigation";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { tabLinks } from "@/app/utils/links";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 export function BottomTab() {
   const navigation = useNavigation<NavigationProps>();
-  const insets = useSafeAreaInsets();
 
   return (
     <View
       className="w-full border-t border-border bg-white px-4 py-2"
       style={{
-        paddingBottom: insets.bottom || 8,
         position: "absolute",
         bottom: 0,
       }}

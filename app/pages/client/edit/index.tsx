@@ -8,6 +8,7 @@ import { useEffect, useState, useTransition } from "react";
 import { ClientResponse } from "@/app/models/client";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import LoadingComponent from "@/app/components/loading";
+import { BottomTab } from "@/app/components/bottom-tab";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 type Props = RouteProp<RootStackParamList, "ClientEdit">;
@@ -37,13 +38,17 @@ export default function ClientEditScreen() {
     fetchClient();
   }, [id]);
 
-  if (isPending) {
-    return <LoadingComponent />;
-  }
-
   return (
-    <View className="flex min-h-full flex-col gap-10 bg-white p-4">
-      {client && <ClientForm client={client} id={id} />}
-    </View>
+    <>
+      {isPending ? (
+        <LoadingComponent />
+      ) : (
+        <View className="flex min-h-full flex-col gap-10 bg-white p-4">
+          {client && <ClientForm client={client} id={id} />}
+        </View>
+      )}
+
+      <BottomTab />
+    </>
   );
 }

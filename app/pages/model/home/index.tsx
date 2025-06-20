@@ -15,6 +15,7 @@ import { ModelResponse } from "@/app/models/model";
 import { Header } from "@/app/components/header";
 import { ModelsFlatList } from "@/app/components/model/model-flatlist";
 import { ButtonRegister } from "@/app/components/button-register";
+import { BottomTab } from "@/app/components/bottom-tab";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
@@ -71,6 +72,7 @@ export default function ModelsScreen() {
       </ScrollView>
 
       <ButtonRegister handleAction={handleNavigateToCreate} />
+      <BottomTab />
     </>
   );
 }

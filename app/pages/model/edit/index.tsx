@@ -6,6 +6,7 @@ import LoadingComponent from "@/app/components/loading";
 import getModelId from "@/app/actions/model/get-model-id";
 import { ModelResponse } from "@/app/models/model";
 import ModelForm from "@/app/components/model/model-form";
+import { BottomTab } from "@/app/components/bottom-tab";
 
 type Props = RouteProp<RootStackParamList, "ModelEdit">;
 
@@ -33,13 +34,17 @@ export default function ModelEditScreen() {
     fetchModel();
   }, [id]);
 
-  if (isPending) {
-    return <LoadingComponent />;
-  }
-
   return (
-    <View className="flex min-h-full flex-col gap-10 bg-white p-4">
-      {model && <ModelForm model={model} id={id} />}
-    </View>
+    <>
+      {isPending ? (
+        <LoadingComponent />
+      ) : (
+        <View className="flex min-h-full flex-col gap-10 bg-white p-4">
+          {model && <ModelForm model={model} id={id} />}
+        </View>
+      )}
+
+      <BottomTab />
+    </>
   );
 }

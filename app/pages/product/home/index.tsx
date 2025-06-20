@@ -8,6 +8,7 @@ import { ButtonRegister } from "@/app/components/button-register";
 import { ProductResponse } from "@/app/models/product";
 import getProducts from "@/app/actions/product/get-products";
 import { ProductsFlatList } from "@/app/components/product/product-flatlist";
+import { BottomTab } from "@/app/components/bottom-tab";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
@@ -64,6 +65,8 @@ export default function ProductsScreen() {
       </ScrollView>
 
       <ButtonRegister handleAction={handleNavigateToCreate} />
+
+      <BottomTab />
     </>
   );
 }

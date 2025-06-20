@@ -11,6 +11,7 @@ import { OrdersFlatList } from "@/app/components/order/order-flatlist";
 import OrderStatusManager from "@/app/components/order/order-status-manager";
 import useOrders from "@/app/hooks/useOrders";
 import { Status } from "@/app/validations/order-validation";
+import { BottomTab } from "@/app/components/bottom-tab";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
@@ -97,6 +98,8 @@ export default function OrdersScreen() {
       </ScrollView>
 
       <ButtonRegister handleAction={handleNavigateToCreate} />
+
+      <BottomTab />
     </>
   );
 }

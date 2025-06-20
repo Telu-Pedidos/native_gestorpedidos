@@ -8,6 +8,7 @@ import { ClientResponse } from "@/app/models/client";
 import { ClientsFlatList } from "../../../components/client/client-flatlist";
 import { Header } from "@/app/components/header";
 import { ButtonRegister } from "@/app/components/button-register";
+import { BottomTab } from "@/app/components/bottom-tab";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
@@ -64,6 +65,7 @@ export default function ClientsScreen() {
       </ScrollView>
 
       <ButtonRegister handleAction={handleNavigateToCreate} />
+      <BottomTab />
     </>
   );
 }
