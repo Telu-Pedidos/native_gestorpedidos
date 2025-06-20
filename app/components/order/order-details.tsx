@@ -38,33 +38,35 @@ export function OrderDetails({
   fetchOrders,
   onClose,
 }: OrderDetailsProps) {
-  //   const [isOpen, setIsOpen] = useState(false);
-  //   const { handleNewStatusOrder, handleFinishOrder } = useOrders({});
-  //   const { toast } = useNewToast();
+  // const [isOpen, setIsOpen] = useState(false);
+  // const { handleNewStatusOrder, handleFinishOrder } = useOrders({
+  //   id: String(order.id),
+  // });
+  // const { toast } = useNewToast();
 
-  //   const nextStatusMap: Record<Status, Status | null> = {
-  //     PENDING: "ACCEPTED",
-  //     ACCEPTED: "PREPARATION",
-  //     PREPARATION: "COMPLETED",
-  //     COMPLETED: null,
-  //   };
+  // const nextStatusMap: Record<Status, Status | null> = {
+  //   PENDING: "ACCEPTED",
+  //   ACCEPTED: "PREPARATION",
+  //   PREPARATION: "COMPLETED",
+  //   COMPLETED: null,
+  // };
 
-  //   const nextStatus = nextStatusMap[status];
+  // const nextStatus = nextStatusMap[status];
 
-  //   const handleAdvanceStatus = async () => {
-  //     try {
-  //       if (!nextStatus) return;
-  //       if (nextStatus === "COMPLETED") {
-  //         await handleFinishOrder(String(order.id));
-  //       } else {
-  //         await handleNewStatusOrder(String(order.id), nextStatus);
-  //       }
-  //       fetchOrders();
-  //       setIsOpen(false);
-  //     } catch (err) {
-  //       toast({ title: "Erro ao alterar status", variant: "error" });
+  // const handleAdvanceStatus = async () => {
+  //   try {
+  //     if (!nextStatus) return;
+  //     if (nextStatus === "COMPLETED") {
+  //       await handleFinishOrder(String(order.id));
+  //     } else {
+  //       await handleNewStatusOrder(String(order.id), nextStatus);
   //     }
-  //   };
+  //     fetchOrders();
+  //     setIsOpen(false);
+  //   } catch (err) {
+  //     toast({ title: "Erro ao alterar status", variant: "error" });
+  //   }
+  // };
 
   return (
     <AlertDialogContent className="rounded-md bg-white">

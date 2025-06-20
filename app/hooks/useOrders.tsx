@@ -1,4 +1,4 @@
-import { useState, useTransition } from "react";
+import { useState, useTransition, useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { timeZone } from "@/app/helpers/date";
@@ -22,78 +22,107 @@ export default function useOrders({ id }: { id?: string }) {
   const [isPending, startTransition] = useTransition();
   const navigation = useNavigation<NavigationProps>();
 
-  const handleNewStatusOrder = async (id: string, newStatus: Status) => {
-    try {
-      await newStatusOrder({ id, newStatus });
-    } catch (error) {
-      console.error("Erro ao atualizar status:", error);
-      toast({ title: "Erro ao atualizar status do pedido.", variant: "error" });
-    }
-  };
-
-  const handleFinishOrder = async (id: string) => {
-    try {
-      await finishOrder(id);
-    } catch (error) {
-      console.error("Erro ao finalizar pedido:", error);
-      toast({ title: "Erro ao finalizar o pedido.", variant: "error" });
-    }
-  };
-
-  const handleCreateOrder = async (data: OrderFormValues) => {
-    try {
-      const result = await createOrder(data);
-      if (!result.ok) {
-        toast({ title: result.error, variant: "error" });
-        return;
-      }
-      navigation.navigate("Orders");
-    } catch (error) {
-      toast({ title: "Erro ao cadastrar o pedido.", variant: "error" });
-    }
-  };
-
-  const handleEditOrder = async (data: OrderFormValues, id: string) => {
-    try {
-      const result = await editOrder(data, id);
-      if (!result.ok) {
-        toast({ title: result.error, variant: "error" });
-        return;
-      }
-    } catch (error) {
-      toast({ title: "Erro ao editar o pedido.", variant: "error" });
-    }
-  };
-
-  const onSubmit = async (data: OrderFormValues) => {
-    startTransition(async () => {
+  const handleNewStatusOrder = useCallback(
+    async (orderId: string, newStatus: Status) => {
       try {
-        const startAt = toZonedTime(parseISO(data.startAt), timeZone);
-        const endAt = toZonedTime(parseISO(data.endAt), timeZone);
-
-        const formattedStartAt = format(startAt, "yyyy-MM-dd'T'HH:mm:ssXXX");
-        const formattedEndAt = format(endAt, "yyyy-MM-dd'T'HH:mm:ssXXX");
-
-        const payload = {
-          ...data,
-          startAt: formattedStartAt,
-          endAt: formattedEndAt,
-        };
-
-        if (id) {
-          await handleEditOrder(payload, id);
-        } else {
-          await handleCreateOrder(payload);
-        }
+        await newStatusOrder({ id: orderId, newStatus });
+        toast({
+          title: "Status do pedido atualizado com sucesso!",
+          variant: "success",
+        });
       } catch (error) {
-        console.error("Erro:", error);
+        console.error("Erro ao atualizar status:", error);
+        toast({
+          title: "Erro ao atualizar status do pedido.",
+          variant: "error",
+        });
       }
-    });
-  };
+    },
+    [toast],
+  );
 
-  const handleCancel = () => {
+  const handleFinishOrder = useCallback(
+    async (orderId: string) => {
+      try {
+        await finishOrder(orderId);
+        toast({ title: "Pedido finalizado com sucesso!", variant: "success" });
+      } catch (error) {
+        console.error("Erro ao finalizar pedido:", error);
+        toast({ title: "Erro ao finalizar o pedido.", variant: "error" });
+      }
+    },
+    [toast],
+  );
+
+  const handleCreateOrder = useCallback(
+    async (data: OrderFormValues) => {
+      try {
+        const result = await createOrder(data);
+        if (!result.ok) {
+          toast({ title: result.error, variant: "error" });
+          return;
+        }
+        toast({ title: "Pedido cadastrado com sucesso!", variant: "success" });
+        navigation.navigate("Orders");
+      } catch (error) {
+        toast({ title: "Erro ao cadastrar o pedido.", variant: "error" });
+      }
+    },
+    [navigation, toast],
+  );
+
+  const handleEditOrder = useCallback(
+    async (data: OrderFormValues, orderId: string) => {
+      try {
+        const result = await editOrder(data, orderId);
+        if (!result.ok) {
+          toast({ title: result.error, variant: "error" });
+          return;
+        }
+        toast({ title: "Pedido editado com sucesso!", variant: "success" });
+      } catch (error) {
+        toast({ title: "Erro ao editar o pedido.", variant: "error" });
+      }
+    },
+    [toast],
+  );
+
+  const onSubmit = useCallback(
+    async (data: OrderFormValues) => {
+      startTransition(async () => {
+        try {
+          const startAt = toZonedTime(parseISO(data.startAt), timeZone);
+          const endAt = toZonedTime(parseISO(data.endAt), timeZone);
+
+          const formattedStartAt = format(startAt, "yyyy-MM-dd'T'HH:mm:ssXXX");
+          const formattedEndAt = format(endAt, "yyyy-MM-dd'T'HH:mm:ssXXX");
+
+          const payload = {
+            ...data,
+            startAt: formattedStartAt,
+            endAt: formattedEndAt,
+          };
+
+          if (id) {
+            await handleEditOrder(payload, id);
+          } else {
+            await handleCreateOrder(payload);
+          }
+        } catch (error) {
+          console.error("Erro no onSubmit:", error);
+          toast({
+            title: "Ocorreu um erro ao processar o pedido.",
+            variant: "error",
+          });
+        }
+      });
+    },
+    [id, handleEditOrder, handleCreateOrder, toast],
+  );
+
+  const handleCancel = useCallback(() => {
     navigation.navigate("Orders");
-  };
+  }, [navigation]);
 
   return {
     activeStatus,

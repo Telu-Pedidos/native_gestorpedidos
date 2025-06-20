@@ -28,6 +28,7 @@ import ProductEditScreen from "./app/pages/product/edit";
 import ProductRegisterScreen from "./app/pages/product/register";
 import MenuScreen from "./app/pages/menu";
 import OrdersScreen from "./app/pages/order/home";
+import OrderRegisterScreen from "./app/pages/order/register";
 
 const Stack = createNativeStackNavigator();
 
@@ -134,6 +135,22 @@ export default function App() {
                 name="ProductRegister"
                 component={ProductRegisterScreen}
                 options={{ title: "Cadastrar produto", headerShown: true }}
+              />
+
+              <Stack.Screen
+                name="Orders"
+                component={OrdersScreen}
+                options={{ title: "Pedidos", headerShown: false }}
+              />
+              {/* <Stack.Screen
+                name="OrderEdit"
+                component={ProductEditScreen}
+                options={{ title: "Editar pedido", headerShown: true }}
+              /> */}
+              <Stack.Screen
+                name="OrderRegister"
+                component={OrderRegisterScreen}
+                options={{ title: "Criar pedido", headerShown: true }}
               />
             </Stack.Navigator>
             <StatusBar style="auto" />

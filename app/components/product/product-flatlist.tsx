@@ -26,8 +26,6 @@ export function ProductsFlatList({ data, fetchData }: ProductsFlatListProps) {
     navigation.navigate("ProductEdit", { product });
   };
 
-  console.log(data[0]);
-
   return (
     <FlatList
       data={data}

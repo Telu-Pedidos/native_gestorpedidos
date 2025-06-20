@@ -21,7 +21,7 @@ import { OrderResponse } from "@/app/models/order";
 import { Status } from "@/app/validations/order-validation";
 import { useState } from "react";
 import { OrderDetails } from "./order-details";
-import { renderStatusText, statusStylesCard } from "./order-utils";
+import { renderStatusText, statusStylesRN } from "./order-utils";
 
 type Props = {
   order: OrderResponse;
@@ -31,7 +31,7 @@ type Props = {
 export function OrderCard({ order, fetchData }: Props) {
   const [showAlertDialog, setShowAlertDialog] = useState(false);
   const status = order.status as Status;
-  const styles = statusStylesCard[status];
+  const styles = statusStylesRN[status];
   const handleClose = () => setShowAlertDialog(false);
 
   return (
@@ -45,12 +45,20 @@ export function OrderCard({ order, fetchData }: Props) {
             {formatNumberToHex(order.id)}
           </Text>
           <View
-            className={`flex-row items-center rounded px-2 py-1 ${styles.background}`}
+            className="flex-row items-center gap-1 rounded-md px-2 py-1"
+            style={{
+              backgroundColor: styles.background.backgroundColor,
+            }}
           >
-            <Text className={`text-xs font-semibold ${styles.text}`}>
+            <Text
+              className="text-xs font-semibold"
+              style={{
+                color: styles.text.color,
+              }}
+            >
               {renderStatusText(status)}
             </Text>
-            <ChevronDownIcon size={14} color="#4B5563" />
+            <ChevronDownIcon size={14} color={styles.text.color} />
           </View>
         </View>
 

@@ -1,5 +1,5 @@
 import { Text, View, TextInput, ScrollView } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/app/models/navigation";
@@ -9,6 +9,8 @@ import { OrderResponse } from "@/app/models/order";
 import getOrders from "@/app/actions/order/get-orders";
 import { OrdersFlatList } from "@/app/components/order/order-flatlist";
 import OrderStatusManager from "@/app/components/order/order-status-manager";
+import useOrders from "@/app/hooks/useOrders";
+import { Status } from "@/app/validations/order-validation";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
@@ -16,6 +18,8 @@ export default function OrdersScreen() {
   const [orders, setOrders] = useState<OrderResponse[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigation = useNavigation<NavigationProps>();
+
+  const { activeStatus, setActiveStatus } = useOrders({});
 
   const fetchOrders = async () => {
     const { data } = await getOrders();
@@ -29,6 +33,28 @@ export default function OrdersScreen() {
   const handleNavigateToCreate = () => {
     navigation.navigate("OrderRegister");
   };
+
+  const filteredOrders = useMemo(() => {
+    let currentOrders = orders;
+
+    if (activeStatus) {
+      currentOrders = currentOrders.filter(
+        (order) => order.status === activeStatus,
+      );
+    }
+
+    if (searchTerm) {
+      const lowerCaseSearchTerm = searchTerm.toLowerCase();
+      currentOrders = currentOrders.filter(
+        (order) =>
+          order.client?.name?.toLowerCase().includes(lowerCaseSearchTerm) ||
+          order.observation?.toLowerCase().includes(lowerCaseSearchTerm) ||
+          String(order.id).toLowerCase().includes(lowerCaseSearchTerm),
+      );
+    }
+
+    return currentOrders;
+  }, [orders, activeStatus, searchTerm]);
 
   return (
     <>
@@ -55,10 +81,18 @@ export default function OrdersScreen() {
           />
         </View>
 
-        <OrderStatusManager orders={orders} />
+        <OrderStatusManager
+          orders={orders}
+          activeStatus={activeStatus as Status | null}
+          setActiveStatus={setActiveStatus}
+        />
 
-        {orders.length > 0 && (
-          <OrdersFlatList data={orders} fetchData={fetchOrders} />
+        {filteredOrders.length > 0 ? (
+          <OrdersFlatList data={filteredOrders} fetchData={fetchOrders} />
+        ) : (
+          <Text className="mt-4 text-center text-gray-500">
+            Nenhum pedido encontrado com este filtro.
+          </Text>
         )}
       </ScrollView>
 

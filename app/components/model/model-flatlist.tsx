@@ -29,7 +29,7 @@ export function ModelsFlatList({ data, fetchData }: ModelsFlatListProps) {
     <FlatList
       data={data}
       keyExtractor={(item) => item.id.toString()}
-      contentContainerStyle={{ paddingBottom: 150 }}
+      contentContainerStyle={{ paddingBottom: 150, gap: 16 }}
       renderItem={({ item: model }) => (
         <View className="rounded-xl border border-border bg-white py-4 shadow">
           <View className="mb-4 flex flex-row flex-wrap items-start justify-between gap-2 border-b border-b-border px-4 py-4">

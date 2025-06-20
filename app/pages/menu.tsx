@@ -23,22 +23,18 @@ export default function MenuScreen() {
   const [isPending, startTransition] = useTransition();
   const { toast } = useNewToast();
 
-  async function handleLogout() {
+  const handleLogout = async () => {
     startTransition(async () => {
       try {
         await logout();
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "Login" }],
-        });
-      } catch (error) {
+      } catch (err) {
         toast({
-          title: "Erro ao desloga",
+          title: "Erro ao deslogar.",
           variant: "error",
         });
       }
     });
-  }
+  };
 
   return (
     <ScrollView className="flex h-full w-full flex-col border-t border-border bg-white py-2 pt-4">

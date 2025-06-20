@@ -44,32 +44,32 @@ export const renderStatusText = (status: Status) => {
   }
 };
 
-const createStatusStyles = (suffix: string = "") => ({
-  PENDING: {
-    border: `border-pending`,
-    background: `bg-pending${suffix}`,
-    iconBg: "bg-pending",
-    text: "text-active",
-  },
-  ACCEPTED: {
-    border: `border-accepted`,
-    background: `bg-accepted${suffix}`,
-    iconBg: "bg-accepted",
-    text: "text-white",
-  },
-  PREPARATION: {
-    border: `border-preparation`,
-    background: `bg-preparation${suffix}`,
-    iconBg: "bg-preparation",
-    text: "text-white",
-  },
-  COMPLETED: {
-    border: `border-completed`,
-    background: `bg-completed${suffix}`,
-    iconBg: "bg-completed",
-    text: "text-[#303C34]",
-  },
-});
+// const createStatusStyles = (suffix: string = "") => ({
+//   PENDING: {
+//     border: `border-pending`,
+//     background: `bg-pending${suffix}`,
+//     iconBg: "bg-pending",
+//     text: "text-active",
+//   },
+//   ACCEPTED: {
+//     border: `border-accepted`,
+//     background: `bg-accepted${suffix}`,
+//     iconBg: "bg-accepted",
+//     text: "text-white",
+//   },
+//   PREPARATION: {
+//     border: `border-preparation`,
+//     background: `bg-preparation${suffix}`,
+//     iconBg: "bg-preparation",
+//     text: "text-white",
+//   },
+//   COMPLETED: {
+//     border: `border-completed`,
+//     background: `bg-completed${suffix}`,
+//     iconBg: "bg-completed",
+//     text: "text-[#303C34]",
+//   },
+// });
 
 export const statusStylesRN = {
   PENDING: {
@@ -98,5 +98,5 @@ export const statusStylesRN = {
   },
 };
 
-export const statusStyles = createStatusStyles("/20");
-export const statusStylesCard = createStatusStyles();
+// export const statusStyles = createStatusStyles("/20");
+// export const statusStylesCard = createStatusStyles();

@@ -1,16 +1,19 @@
 import { OrderResponse } from "@/app/models/order";
 import OrderStatus from "./order-status";
-import useOrders from "@/app/hooks/useOrders";
-import { statuses } from "@/app/validations/order-validation";
+import { statuses, Status } from "@/app/validations/order-validation";
 import { ScrollView } from "react-native";
+
+type OrderStatusManagerProps = {
+  orders: OrderResponse[] | null;
+  activeStatus: Status | null;
+  setActiveStatus: (status: Status | null) => void;
+};
 
 export default function OrderStatusManager({
   orders,
-}: {
-  orders: OrderResponse[] | null;
-}) {
-  const { activeStatus, setActiveStatus } = useOrders({});
-
+  activeStatus,
+  setActiveStatus,
+}: OrderStatusManagerProps) {
   return (
     <ScrollView
       horizontal
